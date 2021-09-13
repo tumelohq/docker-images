@@ -18,3 +18,18 @@ jobs:
         repository: ${{ github.repository }}/netlify-cli
         tag_with_sha: true
         tag_with_ref: true
+  build-and-push-psql-image:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Build container image
+      uses: docker/build-push-action@v1
+      with:
+        dockerfile: psql/Dockerfile
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+        registry: docker.pkg.github.com
+        repository: ${{ github.repository }}/psql
+        tag_with_sha: true
+        tag_with_ref: true
