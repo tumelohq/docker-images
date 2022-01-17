@@ -1,25 +1,17 @@
-package src
+package cmd
 
 import (
 	"context"
 	"database/sql"
 	"errors"
 	"fmt"
-	"log"
 
 	"github.com/lib/pq"
 	"gocloud.dev/postgres"
 	_ "gocloud.dev/postgres/gcppostgres"
 )
 
-func main() {
-	err := connectAndExec("gcppostgres://user:password@example-project/region/my-instance01/testdb", "CREATE TABLE foo (bar INT);")
-	if err != nil {
-		log.Fatal(err)
-	}
-}
-
-func connectAndExec(connStr string, command string) error {
+func ConnectAndExec(connStr string, command string) error {
 	db, close, err := openDB(connStr)
 	if err != nil {
 		return err
@@ -32,10 +24,10 @@ func connectAndExec(connStr string, command string) error {
 func openDB(connstring string) (db *sql.DB, close func() error, err error) {
 	db, err = postgres.Open(context.Background(), connstring)
 	if err != nil {
-		return nil, nil, fmt.Errorf("connecting to database: %w", err)
+		return nil, nil, fmt.Errorf("connecting to database: %w: %s", err, expectedConnStr)
 	}
 	if err := db.Ping(); err != nil {
-		return nil, nil, fmt.Errorf("connecting to database: %w", err)
+		return nil, nil, fmt.Errorf("pinging database: %w: %s", err, expectedConnStr)
 	}
 	return db, db.Close, nil
 }

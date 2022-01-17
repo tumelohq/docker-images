@@ -1,4 +1,4 @@
-package src
+package cmd
 
 import (
 	"fmt"
@@ -37,12 +37,12 @@ func Test_connectAndExec(t *testing.T) {
 			name:       "error - can't login to database returns error",
 			command:    "SELECT current_database();",
 			connstring: "postgres://postgres:postgres@locallllhost:5432/postgres?sslmode=disable",
-			wantErr:    fmt.Errorf(`connecting to database:`),
+			wantErr:    fmt.Errorf(`pinging database:`),
 		},
 	}
 	for _, tt := range tts {
 		t.Run(tt.name, func(t *testing.T) {
-			err := connectAndExec(tt.connstring, tt.command)
+			err := ConnectAndExec(tt.connstring, tt.command)
 			if tt.wantErr == nil || err == nil {
 				assert.Equal(t, tt.wantErr, err)
 			} else {
