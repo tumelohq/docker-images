@@ -39,7 +39,7 @@ func validateInput(connStr string, command string) error {
 		return fmt.Errorf("env variable %s must be set, %s", connStrEnvName, expectedConnStr)
 	}
 	if _, err := url.Parse(connStr); err != nil {
-		return fmt.Errorf("parsing connection URL: %w, %s", err, expectedConnStr)
+		return fmt.Errorf("parsing connection URL, %s", expectedConnStr)
 	}
 	if command == "" {
 		return fmt.Errorf("env variable %s must be set", sqlCommandEnvName)
