@@ -87,8 +87,6 @@ RUN /bin/bash -c ". ~/.nvm/nvm.sh && nvm use ${VERSION_NODE_DEFAULT}  && \
 
 ## Environment Setup
 RUN echo export PATH="/root/.nvm/versions/node/${VERSION_NODE_DEFAULT}/bin:\
-    $(python3 -m site --user-base)/bin:\
-    $(python3.9 -m site --user-base)/bin:\
     $PATH" >> ~/.bashrc && \
     echo "nvm use ${VERSION_NODE_DEFAULT} 1> /dev/null" >> ~/.bashrc && 
 
