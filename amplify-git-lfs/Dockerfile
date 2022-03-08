@@ -85,13 +85,10 @@ RUN /bin/bash -c ". ~/.nvm/nvm.sh && nvm use ${VERSION_NODE_DEFAULT}  && \
     npm config set user 0 && npm config set unsafe-perm true && \
     npm install -g @aws-amplify/cli@${VERSION_AMPLIFY}"
 
-## Environment Setup
-RUN echo export PATH="/root/.nvm/versions/node/${VERSION_NODE_DEFAULT}/bin:\
-    $PATH" >> ~/.bashrc && \
-    echo "nvm use ${VERSION_NODE_DEFAULT} 1> /dev/null" >> ~/.bashrc
-
-
 RUN curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.rpm.sh | bash && \
     yum install -y git-lfs
+
+RUN echo export PATH="/root/.yarn/bin:/root/.config/yarn/global/node_modules/.bin:/root/.nvm/versions/node/${VERSION_NODE_DEFAULT}/bin:$PATH" >> ~/.bashrc && echo "nvm use ${VERSION_NODE_DEFAULT} 1> /dev/null" >> ~/.bashrc
+
 
 ENTRYPOINT [ "bash", "-c" ]
