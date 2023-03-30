@@ -7,8 +7,8 @@ LABEL maintainer="Amazon AWS"
 
 # Framework Versions
 ENV VERSION_NODE_DEFAULT=16
-ENV VERSION_YARN=1.22.0
-ENV VERSION_AMPLIFY=6.3.1
+ENV VERSION_YARN=1.22.19
+ENV VERSION_AMPLIFY=11.0.3
 
 # UTF-8 Environment
 ENV LANGUAGE en_US:en
@@ -70,22 +70,17 @@ RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | b
 RUN /bin/bash -c ". ~/.nvm/nvm.sh && \
     nvm install $VERSION_NODE_DEFAULT && nvm use $VERSION_NODE_DEFAULT && \
     npm install -g yarn@${VERSION_YARN} && \
-    nvm alias default ${VERSION_NODE_DEFAULT} && nvm cache clear"
+    nvm alias default $VERSION_NODE_DEFAULT && nvm cache clear"
 
 # Handle yarn for any `nvm install` in the future
 RUN echo "yarn@${VERSION_YARN}" > /root/.nvm/default-packages
 
-
-## Installing Cypress
-RUN /bin/bash -c ". ~/.nvm/nvm.sh && \
-    nvm use ${VERSION_NODE_DEFAULT} && \
-    npm install -g --unsafe-perm=true --allow-root cypress"
-
-RUN /bin/bash -c ". ~/.nvm/nvm.sh && nvm use ${VERSION_NODE_DEFAULT}  && \
+RUN /bin/bash -c ". ~/.nvm/nvm.sh && nvm use $VERSION_NODE_DEFAULT && \
     npm config set user 0 && npm config set unsafe-perm true && \
     npm install -g @aws-amplify/cli@${VERSION_AMPLIFY}"
 
-RUN curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.rpm.sh | bash && \
+RUN yum install -y amazon-linux-extras && \
+    amazon-linux-extras install epel -y && \
     yum install -y git-lfs
 
 RUN echo export PATH="/root/.yarn/bin:/root/.config/yarn/global/node_modules/.bin:/root/.nvm/versions/node/${VERSION_NODE_DEFAULT}/bin:$PATH" >> ~/.bashrc && echo "nvm use ${VERSION_NODE_DEFAULT} 1> /dev/null" >> ~/.bashrc
