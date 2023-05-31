@@ -1,69 +1,53 @@
 name: Create and publish a package
 on:
   push:
-    branches: ['main']
+    branches: ["main"]
 jobs:
-  build-and-push-netlify-image:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Login to GitHub Container Registry
-      uses: docker/login-action@v1 
-      with:
-        registry: ghcr.io
-        username: ${{ github.repository_owner }}
-        password: ${{ secrets.GITHUB_TOKEN }}
-    - name: Build container image
-      uses: docker/build-push-action@v2
-      with:
-        push: true
-        file: netlify-cli/Dockerfile
-        tags: |
-          ghcr.io/tumelohq/netlifly-cli:latest
   build-and-push-psql-image:
     runs-on: ubuntu-latest
     steps:
-    - name: Login to GitHub Container Registry
-      uses: docker/login-action@v1 
-      with:
-        registry: ghcr.io
-        username: ${{ github.repository_owner }}
-        password: ${{ secrets.GITHUB_TOKEN }}
-    - name: Build container image
-      uses: docker/build-push-action@v2
-      with:
-        push: true
-        file: psql/Dockerfile
-        tags: |
-          ghcr.io/tumelohq/psql:latest
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build container image
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          file: psql/Dockerfile
+          tags: |
+            ghcr.io/tumelohq/psql:latest
   build-and-push-gcp-postgres-runner-image:
     runs-on: ubuntu-latest
     steps:
-    - name: Login to GitHub Container Registry
-      uses: docker/login-action@v1 
-      with:
-        registry: ghcr.io
-        username: ${{ github.repository_owner }}
-        password: ${{ secrets.GITHUB_TOKEN }}
-    - name: Build container image
-      uses: docker/build-push-action@v2
-      with:
-        push: true
-        file: gcp-postgres-runner/Dockerfile
-        tags: |
-          ghcr.io/tumelohq/gcp-postgres-runner:latest
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build container image
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          file: gcp-postgres-runner/Dockerfile
+          tags: |
+            ghcr.io/tumelohq/gcp-postgres-runner:latest
   build-and-push-amplify-git-lfs-image:
     runs-on: ubuntu-latest
     steps:
-    - name: Login to GitHub Container Registry
-      uses: docker/login-action@v1 
-      with:
-        registry: ghcr.io
-        username: ${{ github.repository_owner }}
-        password: ${{ secrets.GITHUB_TOKEN }}
-    - name: Build container image
-      uses: docker/build-push-action@v2
-      with:
-        push: true
-        file: amplify-git-lfs/Dockerfile
-        tags: |
-          ghcr.io/tumelohq/amplify-git-lfs:latest
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build container image
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          file: amplify-git-lfs/Dockerfile
+          tags: |
+            ghcr.io/tumelohq/amplify-git-lfs:latest
