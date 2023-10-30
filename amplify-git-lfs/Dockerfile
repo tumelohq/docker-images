@@ -2,7 +2,7 @@ FROM node:18.17.0-alpine
 
 
 # https://docs.aws.amazon.com/amplify/latest/userguide/custom-build-image.html
-RUN apt-get update && apt-get install -y \
+RUN apk update && apk add \
     git \
     git-lfs \
     curl \
