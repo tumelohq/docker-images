@@ -6,6 +6,8 @@ RUN apt-get update && apt-get install -y \
     git \
     git-lfs \
     curl \
+    python3 \
+    build-essential \
     && rm -rf /var/lib/apt/lists/*
 
 ENTRYPOINT [ "bash", "-c" ]
