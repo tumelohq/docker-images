@@ -1,4 +1,4 @@
-FROM node:18.19.0-slim
+FROM node:20.18.0-slim
 
 
 # https://docs.aws.amazon.com/amplify/latest/userguide/custom-build-image.html
