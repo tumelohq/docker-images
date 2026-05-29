@@ -20,4 +20,7 @@ RUN apt-get update && apt-get install -y \
     librsvg2-dev \
     && rm -rf /var/lib/apt/lists/*
 
+# corepack provides the pnpm/yarn shims (bundled with node, opt-in)
+RUN corepack enable
+
 ENTRYPOINT [ "bash", "-c" ]
